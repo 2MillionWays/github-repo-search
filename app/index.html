@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="searchApp">
+<head>
+    <meta charset="UTF-8">
+    <title>Repository Search</title>
+    <link rel="stylesheet" href="app.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+    <script src="app.js"></script>
+</head>
+<body ng-controller="tableCtrl">
+<form>
+    <b>Search: </b>
+    <input type="text" placeholder="Enter Repo name" ng-model="query" ng-model-options="{debounce : 1000}" ng-change="inputChange()">
+</form>
+<br>
+<table>
+    <tr>
+        <th>Name</th>
+        <th>Author</th>
+        <th>Stars</th>
+        <th class="hideOnMobile">Issues</th>
+        <th class="hideOnMobile">Avatar</th>
+        <th class="hideOnMobile">Private</th>
+        <th class="hideOnMobile">Link</th>
+    </tr>
+    <tr ng-repeat = "result in searchResults | orderBy: 'full_name'">
+        <td>{{result.full_name}}</td>
+        <td>{{result.owner.login}}</td>
+        <td>{{result.stargazers_count}}</td>
+        <td class="hideOnMobile">{{result.open_issues}}</td>
+        <td class="hideOnMobile"><img src="{{result.owner.avatar_url}}" alt="User Avatar"></td>
+        <td class="hideOnMobile">{{result.private}}</td>
+        <td class="hideOnMobile"><a href="{{result.html_url}}">{{result.html_url}}</a></td>
+    </tr>
+</table>
+
+</body>
+</html>
